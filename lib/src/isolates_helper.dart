@@ -52,6 +52,9 @@ class IsolatesHelper<R> {
     return _manager.compute([function, params]);
   }
 
+  /// Get the result as stream
+  Stream<R> get stream => _manager.stream;
+
   /// Restart all the isolates
   Future<void> restart() => _manager.restart();
 
