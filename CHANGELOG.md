@@ -1,3 +1,7 @@
+## 0.0.2+1
+
+* Add `@pragma('vm:entry-point')` anotation.
+
 ## 0.0.2
 
 * Add `stream` method to listen to result events.

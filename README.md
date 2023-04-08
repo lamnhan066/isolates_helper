@@ -41,14 +41,18 @@ void main() async {
   });
 }
 
+@pragma('vm:entry-point')
 Future<double> addFuture(dynamic values) async {
   return values[0] + values[1];
 }
 
+@pragma('vm:entry-point')
 int add(dynamic values) {
   return values[0] + values[1];
 }
 ```
+
+Use `@pragma('vm:entry-point')` notation to avoid the function being trimmed when building in release mode.
 
 You can restart all the isolates with:
 
