@@ -38,6 +38,32 @@ void main() async {
       isolates.stop();
     });
   });
+
+  test('test try-catch', () async {
+    // Create 3 isolates to solve the problems
+    final isolates = IsolatesHelper(concurrent: 3);
+
+    // Catch the error from the stream
+    isolates.stream.listen((result) {
+      print('Stream get add: $result');
+    }).onError((e) {
+      print('Error from stream: $e');
+      expect(e, isA<ArgumentError>());
+    });
+
+    // Catch the error from the try-catch block
+    try {
+      await isolates.compute(addException, [1, 1]);
+    } catch (e) {
+      print('Error from try-catch: $e');
+      expect(e, isA<ArgumentError>());
+    }
+
+    // Stop the usolate after 5 seconds
+    Timer(Duration(seconds: 5), () {
+      isolates.stop();
+    });
+  });
 }
 
 Future<double> addFuture(dynamic values) async {
@@ -46,4 +72,8 @@ Future<double> addFuture(dynamic values) async {
 
 int add(dynamic values) {
   return values[0] + values[1];
+}
+
+int addException(dynamic values) {
+  return throw ArgumentError();
 }
