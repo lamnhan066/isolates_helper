@@ -54,6 +54,24 @@ int add(dynamic values) {
 
 Use `@pragma('vm:entry-point')` notation to avoid the function being trimmed when building in release mode.
 
+Here is the ways to use `try-catch` block:
+
+``` dart
+// Catch the error from the stream
+isolates.stream.listen((result) {
+  print('Stream get add: $result');
+}).onError((e) {
+  print('Error from stream: $e');
+});
+
+// Catch the error from the try-catch block
+try {
+  await isolates.compute(addException, [1, 1]);
+} catch (e) {
+  print('Error from try-catch: $e');
+}
+```
+
 You can restart all the isolates with:
 
 ``` Dart
