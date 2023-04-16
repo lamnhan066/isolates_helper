@@ -1,3 +1,8 @@
+## 0.0.3
+
+* Improve test for `try-catch` block.
+* Improve REAME for `try-catch` block.
+
 ## 0.0.2+1
 
 * Add `@pragma('vm:entry-point')` anotation.
