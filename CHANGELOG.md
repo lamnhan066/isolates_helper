@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Bumped Dart sdk to `>=2.18.0 <4.0.0`.
+
 ## 0.0.3
 
 * Improve test for `try-catch` block.
