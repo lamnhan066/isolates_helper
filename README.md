@@ -15,6 +15,7 @@ void main() async {
   // Create 3 isolates to solve the problems
   final isolates = IsolatesHelper(concurrent: 3);
 
+  // Listen for the results from the stream.
   isolates.stream.listen((result) {
     if (result is double) {
       print('Stream get addFuture: $result');
@@ -23,19 +24,19 @@ void main() async {
     }
   });
 
-  for (double i = 0; i < 10; i++) {
-    isolates(addFuture, [i, i]).then((value) {
-      print('addFuture: $i + $i = $value');
-    });
-  }
+  // Compute the values
+  final added = await isolates.compute(addFuture, [1.1, 2.2]);
+  print('add: 1.1 + 2.2 = $added');
 
+  // Multiple computations at the same time are allowed. It will be queued
+  // automatically.
   for (int i = 0; i < 10; i++) {
     isolates(add, [i, i]).then((value) async {
       print('add: $i + $i = $value');
     });
   }
 
-  // Stop the usolate after 5 seconds
+  // Stop the IsolateHelper instance after 5 seconds
   Timer(Duration(seconds: 5), () {
     isolates.stop();
   });
