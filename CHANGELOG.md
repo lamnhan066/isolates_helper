@@ -1,3 +1,7 @@
+## 0.2.0
+
+* Bump `isolate_manager` to `^3.0.0`.
+
 ## 0.1.1
 
 * Improve README.
