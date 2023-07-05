@@ -4,9 +4,9 @@ import 'package:isolate_manager/isolate_manager.dart';
 import 'package:isolates_helper/src/function.dart';
 
 /// [R] is the return type of the function
-class IsolatesHelper<R> {
+class IsolatesHelper {
   /// The instance of the [IsolateManager]
-  late final IsolateManager<R> _manager;
+  late final IsolateManager<Object, List<Object>> _manager;
 
   /// Check that the [IsolateManager] is started or not
   bool get isStarted => _ensureCompleter.isCompleted;
@@ -27,7 +27,7 @@ class IsolatesHelper<R> {
   IsolatesHelper({
     int concurrent = 1,
     String worker = '',
-    R Function(dynamic)? workerConverter,
+    Object Function(dynamic)? workerConverter,
     bool isDebug = false,
   }) {
     IsolateManager.debugLogPrefix = 'Isolates Helper';
@@ -45,24 +45,32 @@ class IsolatesHelper<R> {
   /// Compute the given [function] with its' [params].
   ///
   /// Equavient of [compute]
-  Future<R> call(FutureOr<R> Function(dynamic) function, dynamic params) async {
+  Future<R> call<R extends Object, P extends Object>(
+    FutureOr<R> Function(P) function,
+    P params,
+  ) {
     return _excute(function, params);
   }
 
   /// Compute the given [function] with its' [params].
-  Future<R> compute(
-      FutureOr<R> Function(dynamic) function, dynamic params) async {
+  Future<R> compute<R extends Object, P extends Object>(
+    FutureOr<R> Function(P) function,
+    P params,
+  ) {
     return _excute(function, params);
   }
 
   /// Execute the given [function] with its' [params].
-  Future<R> _excute(
-      FutureOr<R> Function(dynamic) function, dynamic params) async {
-    return _manager.compute([function, params]);
+  Future<R> _excute<R extends Object, P extends Object>(
+    FutureOr<R> Function(P) function,
+    P params,
+  ) async {
+    final result = await _manager.compute([function, params]);
+    return result as R;
   }
 
   /// Get the result as stream
-  Stream<R> get stream => _manager.stream;
+  Stream<Object> get stream => _manager.stream;
 
   /// Restart all the isolates
   Future<void> restart() => _manager.restart();
