@@ -64,6 +64,41 @@ void main() async {
       isolates.stop();
     });
   });
+
+  test('Ensure started', () async {
+    // The first `compute` will ensure started automatically
+    final isolates1 = IsolatesHelper(concurrent: 1);
+
+    final stopWatch = Stopwatch()..start();
+    expect(isolates1.isStarted, equals(false));
+    await isolates1.compute(addFuture, [2.0, 3.0]);
+    final stopWithoutEnsured = stopWatch.elapsedMicroseconds;
+
+    // reset stopwatch
+    stopWatch
+      ..stop()
+      ..reset();
+
+    // Calling the `compute` method after waiting for `ensureStarted`.
+    final isolates2 = IsolatesHelper(concurrent: 1);
+    await isolates2.ensureStarted;
+    expect(isolates1.isStarted, equals(true));
+
+    stopWatch.start();
+    await isolates2.compute(addFuture, [2.0, 3.0]);
+    final stopWithEnsured = stopWatch.elapsedMicroseconds;
+    stopWatch.stop();
+
+    await isolates1.stop();
+    await isolates2.stop();
+
+    print(stopWithoutEnsured);
+    print(stopWithEnsured);
+
+    // The stopWithoutEnsured will always greater than the stopWithEnsured
+    // because it needs to wait for the `ensureStarted` before computation.
+    expect(stopWithoutEnsured, greaterThan(stopWithEnsured));
+  });
 }
 
 Future<double> addFuture(dynamic values) async {
