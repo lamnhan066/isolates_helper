@@ -24,7 +24,8 @@ void main() async {
     }
   });
 
-  // Compute the values
+  // Compute the values. The return type and parameter type will respect the type
+  // of the function.
   final added = await isolates.compute(addFuture, [1.1, 2.2]);
   print('add: 1.1 + 2.2 = $added');
 
@@ -43,12 +44,12 @@ void main() async {
 }
 
 @pragma('vm:entry-point')
-Future<double> addFuture(dynamic values) async {
+Future<double> addFuture(List<double> values) async {
   return values[0] + values[1];
 }
 
 @pragma('vm:entry-point')
-int add(dynamic values) {
+int add(List<int> values) {
   return values[0] + values[1];
 }
 ```

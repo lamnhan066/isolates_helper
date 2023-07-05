@@ -1,3 +1,8 @@
+## 0.3.0-rc.1
+
+* Remove type of the `IsolatesHelper`.
+* The return type and parameter type of the `compute` method automatically respect the type of the `function`.
+
 ## 0.2.1
 
 * Add `ensureStarted` and `isStarted` to check if the current isolates are started or still in processing.
