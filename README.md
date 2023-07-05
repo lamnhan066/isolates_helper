@@ -73,16 +73,28 @@ try {
 }
 ```
 
+The first `compute` will automatically wait for all isolates to started before doing the computation, if you want to wait for it manually, you can use:
+
+``` dart
+await isolates.ensureStarted;
+```
+
+Or you can check if the current isolates are started or still in processing by using:
+
+``` dart
+bool isStarted = isolates.isStarted;
+```
+
 You can restart all the isolates with:
 
 ``` Dart
-isolates.restart();
+await isolates.restart();
 ```
 
 Remember to stop the isolates when you don't need it:
 
 ``` Dart
-isolates.stop();
+await isolates.stop();
 ```
 
 ## Additional

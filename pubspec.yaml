@@ -1,15 +1,15 @@
 name: isolates_helper
 description: An easy way to create multiple long live isolates for computation, support try-catch block.
-version: 0.2.0
-homepage: https://github.com/vursin/isolates_helper
+version: 0.2.1
+homepage: https://github.com/vnniz/isolates_helper
 
 environment:
   sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
-  isolate_manager: ^3.0.0
+  isolate_manager: ^3.0.1
 
 dev_dependencies:
-  test: ^1.22.2
-  lints: ^2.0.0
-  js: ^0.6.4
+  test: ^1.24.4
+  lints: ^2.1.1
+  js: ^0.6.7

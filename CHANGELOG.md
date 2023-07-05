@@ -1,3 +1,7 @@
+## 0.2.1
+
+* Add `ensureStarted` and `isStarted` to check if the current isolates are started or still in processing.
+
 ## 0.2.0
 
 * Bump `isolate_manager` to `^3.0.0`.
