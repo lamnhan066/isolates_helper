@@ -14,13 +14,15 @@ void main() async {
     isolates.stream.listen((result) {
       if (result is double) {
         print('Stream get addFuture: $result');
+      } else if (result is String) {
+        print('Stream get concat: $result');
       } else {
         print('Stream get add: $result');
       }
     });
 
     for (double i = 0; i < 10; i++) {
-      isolates(addFuture, [i, i]).then((value) async {
+      isolates.compute(addFuture, [i, i]).then((value) async {
         print('addFuture: $i + $i = $value');
         expect(value, equals(await addFuture([i, i])));
       });
@@ -30,6 +32,13 @@ void main() async {
       isolates(add, [i, i]).then((value) {
         print('add: $i + $i = $value');
         expect(value, equals(add([i, i])));
+      });
+    }
+
+    for (int i = 0; i < 10; i++) {
+      isolates.compute(concat, ['$i', '$i']).then((value) {
+        print('add: $i + $i = $value');
+        expect(value, equals(concat(['$i', '$i'])));
       });
     }
 
@@ -101,14 +110,18 @@ void main() async {
   });
 }
 
-Future<double> addFuture(dynamic values) async {
+Future<double> addFuture(List<double> values) async {
   return values[0] + values[1];
 }
 
-int add(dynamic values) {
+int add(List<int> values) {
   return values[0] + values[1];
 }
 
 int addException(dynamic values) {
   return throw ArgumentError();
+}
+
+String concat(List<String> params) {
+  return '${params[0]} ${params[1]}';
 }
