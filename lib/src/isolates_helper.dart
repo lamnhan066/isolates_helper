@@ -8,6 +8,13 @@ class IsolatesHelper<R> {
   /// The instance of the [IsolateManager]
   late final IsolateManager<R> _manager;
 
+  /// Check that the [IsolateManager] is started or not
+  bool get isStarted => _ensureCompleter.isCompleted;
+
+  /// Ensure that the [IsolatesHelper] was already started.
+  Future<void> get ensureStarted => _ensureCompleter.future;
+  final Completer<void> _ensureCompleter = Completer();
+
   /// Create multiple long live isolates for computation.
   ///
   /// [concurrent] is a number of isolates that you want to create.
@@ -30,7 +37,9 @@ class IsolatesHelper<R> {
       workerConverter: workerConverter,
       concurrent: concurrent,
       isDebug: isDebug,
-    )..start();
+    )..start().then((value) {
+        _ensureCompleter.complete();
+      });
   }
 
   /// Compute the given [function] with its' [params].
