@@ -108,6 +108,26 @@ void main() async {
     // because it needs to wait for the `ensureStarted` before computation.
     expect(stopWithoutEnsured, greaterThan(stopWithEnsured));
   });
+
+  test('Complex return', () async {
+    final isolates = IsolatesHelper();
+
+    final result = await isolates.compute(
+      complexReturn,
+      <List<String>>[
+        <String>['abc']
+      ],
+    );
+
+    expect(result, isA<List<List<String>>>());
+    expect(
+        result,
+        equals(<List<String>>[
+          <String>['abc']
+        ]));
+
+    isolates.stop();
+  });
 }
 
 Future<double> addFuture(List<double> values) async {
@@ -124,4 +144,8 @@ int addException(dynamic values) {
 
 String concat(List<String> params) {
   return '${params[0]} ${params[1]}';
+}
+
+List<List<String>> complexReturn(List<List<String>> params) {
+  return params;
 }
