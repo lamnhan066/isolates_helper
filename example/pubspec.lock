@@ -79,25 +79,25 @@ packages:
     dependency: transitive
     description:
       name: isolate_contactor
-      sha256: "5168df70b292064e4b84a5b9ab7a17001a4416566ccd106371cd80081ab448d0"
+      sha256: "5d18bd8bbd4944edd643c48794477ab90cf1706b6b855bab402125b9aecb1322"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0-rc.2"
+    version: "4.0.0"
   isolate_manager:
     dependency: transitive
     description:
       name: isolate_manager
-      sha256: "664de9c3bfcb772f3238a1f466bb6e7ab99dc645b37a96464362044ed7120e25"
+      sha256: "76c93e3c023aa495e487ee051105e0432cbd668d46c673eef9173692184d0d1c"
       url: "https://pub.dev"
     source: hosted
-    version: "4.0.0-rc.2"
+    version: "4.0.0"
   isolates_helper:
     dependency: "direct main"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.3.0-rc.1"
+    version: "0.3.0"
   js:
     dependency: transitive
     description:

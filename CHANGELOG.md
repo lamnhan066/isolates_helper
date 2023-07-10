@@ -1,4 +1,4 @@
-## 0.3.0-rc.1
+## 0.3.0
 
 * Remove type of the `IsolatesHelper`.
 * The return type and parameter type of the `compute` method automatically respect the type of the `function`.
