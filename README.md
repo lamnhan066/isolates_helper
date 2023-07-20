@@ -98,9 +98,117 @@ Remember to stop the isolates when you don't need it:
 await isolates.stop();
 ```
 
-## Additional
+## Worker
 
-* This package also provides the way to implement Worker for Web platform. To keeps this package simple to use, you can read [here](https://pub.dev/packages/isolate_manager#worker-configuration) for more details when you need it.
+* **Step 1** Download [isolates_helper/worker/worker.dart](https://raw.githubusercontent.com/vursin/isolates_helper/main/worker/worker.dart) or copy the below code to the file named `worker.dart`:
+
+  <details>
+  
+  <summary>worker.dart</summary>
+
+  ``` dart
+  // ignore_for_file: avoid_web_libraries_in_flutter, depend_on_referenced_packages
+
+  import 'dart:async';
+  import 'dart:html' as html;
+  import 'dart:js' as js;
+
+  import 'package:isolate_manager/isolate_manager.dart';
+  import 'package:js/js.dart' as pjs;
+  import 'package:js/js_util.dart' as js_util;
+
+  @pjs.JS('self')
+  external dynamic get globalScopeSelf;
+
+  /// ============================================
+  /// dart compile js worker.dart -o worker.js -O4
+  /// ============================================
+
+  /// TODO: Mapping between your `workerFunction` and real `Function`
+  Map<String, Function> map = {
+    // 'add': add,
+  };
+
+  /// In most cases you don't need to modify this function
+  main() {
+    callbackToStream('onmessage', (html.MessageEvent e) {
+      return js_util.getProperty(e, 'data');
+    }).listen((message) async {
+      final Completer completer = Completer();
+      completer.future.then(
+        (value) => jsSendMessage(value),
+        onError: (err, stack) =>
+            jsSendMessage(IsolateException(err, stack).toJson()),
+      );
+      try {
+        final function = map[message[0]] as Function;
+        final params = message[1];
+        completer.complete(function(params));
+      } catch (err, stack) {
+        jsSendMessage(IsolateException(err, stack).toJson());
+      }
+    });
+  }
+
+  /// Internal function
+  Stream<T> callbackToStream<J, T>(
+      String name, T Function(J jsValue) unwrapValue) {
+    var controller = StreamController<T>.broadcast(sync: true);
+    js_util.setProperty(js.context['self'], name, js.allowInterop((J event) {
+      controller.add(unwrapValue(event));
+    }));
+    return controller.stream;
+  }
+
+  /// Internal function
+  void jsSendMessage(dynamic m) {
+    js.context.callMethod('postMessage', [m]);
+  }
+
+  ```
+
+  </details>
+
+* **Step 2** Modify the mapping between your `functionName` and real `function`:
+
+  ```dart 
+  /// TODO: Mapping between your `workerFunction` and real `Function`
+  Map<String, Function> map = {
+    // 'add': add,
+  };
+  ```
+
+ **You should copy that functions to separated file or copy to `worker.dart` file to prevent the `dart compile js` error because some other functions depend on flutter library.**
+
+* **Step 3:** Run `dart compile js worker.dart -o worker.js -O4` to compile dart to js (`-O0` to `-O4` is the obfuscated level of `js`).
+* **Step 4:** Copy `worker.js` to web folder (the same folder with `index.html`).
+* **Step 5:** Now you can add `worker` to `worker` parameter like below:
+
+  ``` dart
+  final isolates = IsolatesHelper(
+    concurrent: 3,
+    worker: 'worker',
+    isDebug: true,
+  );
+  ```
+
+* **Step 6** Here is the way to execute a Worker function
+
+  ``` dart
+  final result = await isolates(
+    // Here is the normal function
+    add, 
+
+    // Here is the normal params
+    [2, 3], 
+
+    // Here is the name of the function that is mapped in the step 2
+    workerFunction: 'add',
+    
+    // [Optional] the normal params will be used if this value is null
+    workerParams: [2, 3], 
+    );
+  ```
 
 ## Contributions
 

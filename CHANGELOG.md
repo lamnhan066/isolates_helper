@@ -1,3 +1,8 @@
+## 0.4.0-dev.1
+
+* Add a new `worker.dart` with a new format.
+* Add `workerFunction` to execute a mapped function, `workerParams` to add the specific parameters into Worker.
+
 ## 0.3.0
 
 * Remove type of the `IsolatesHelper`.
