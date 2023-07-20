@@ -1,8 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:isolates_helper/isolates_helper.dart';
 
-@pragma('vm:entry-point')
-int add(dynamic values) => values[0] + values[1];
+import 'functions.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String text = '';
-  final isolates = IsolatesHelper(concurrent: 3, isDebug: true);
+
+  final isolates = IsolatesHelper(
+    concurrent: 3,
+    worker: 'worker',
+    isDebug: true,
+  );
 
   @override
   void initState() {
@@ -25,7 +31,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void calculate() {
-    isolates(add, [3, 4]).then((value) {
+    final rand = Random();
+    final params = [rand.nextInt(1000), rand.nextInt(1000)];
+    isolates(add, params, workerFunction: 'add').then((value) {
       setState(() => text = '$value');
     });
   }
