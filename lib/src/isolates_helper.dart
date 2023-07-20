@@ -66,7 +66,11 @@ class IsolatesHelper {
     );
   }
 
-  /// Compute the given [function] with its' [params].
+  /// Compute the given [function] with given [params].
+  ///
+  /// [workerFunction] is the name of the function that have created in `worker.dart`.
+  ///
+  /// [workerParams] is specific params for `Worker`, [params] will be use if this value is null.
   Future<R> compute<R extends Object, P extends Object>(
     FutureOr<R> Function(P) function,
     P params, {
@@ -95,6 +99,7 @@ class IsolatesHelper {
       workerFunction: workerFunction,
       workerParams: workerParams,
       isWorker: _manager.workerName != '',
+      isDebug: _manager.isDebug,
     );
   }
 

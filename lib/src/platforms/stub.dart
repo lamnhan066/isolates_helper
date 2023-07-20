@@ -8,6 +8,7 @@ Future<R> platformExecute<R extends Object, P extends Object>({
   required String? workerFunction,
   required Object? workerParams,
   required bool isWorker,
+  required bool isDebug,
 }) async {
   return (await manager.compute([function, params])) as R;
 }

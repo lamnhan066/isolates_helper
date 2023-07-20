@@ -8,16 +8,16 @@ Future<R> platformExecute<R extends Object, P extends Object>({
   required String? workerFunction,
   required Object? workerParams,
   required bool isWorker,
+  required bool isDebug,
 }) async {
-  if (isWorker) {
-    assert(
-      workerFunction != null,
-      'Function name must not be null when using Worker',
-    );
+  if (isDebug && isWorker && workerFunction == null) {
+    print('[Isolates Helper] Worker is available but `workerFunction` is null, '
+        'so `Future` will be used instead');
+  }
 
-    // Worker doesn't allow passing function
-    return (await manager.compute([workerFunction!, workerParams ?? params]))
-        as R;
+  if (isWorker && workerFunction != null) {
+    final finalParams = workerParams ?? params;
+    return (await manager.compute([workerFunction, finalParams])) as R;
   } else {
     return (await manager.compute([function, params])) as R;
   }
