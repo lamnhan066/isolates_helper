@@ -1,7 +1,7 @@
-## 0.4.0-dev.1
+## 0.4.0
 
-* Add a new `worker.dart` with a new format.
-* Add `workerFunction` to execute a mapped function, `workerParams` to add the specific parameters into Worker.
+* Update `worker.dart` with a new format to make it easier to .
+* Add `workerFunction`, `workerParams` to execute a mapped function when using `Worker`.
 
 ## 0.3.0
 

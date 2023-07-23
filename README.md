@@ -2,7 +2,7 @@
 
 * An easy way to create multiple long live isolates for computation.
 
-* This package is based on the power of [isolate_manager](https://pub.dev/packages/isolate_manager) (which is also written by me) but can be used with mutiple functions.
+* This package is based on the power of [isolate_manager](https://pub.dev/packages/isolate_manager) (also written by me) but can be used with mutiple functions.
 
 * Support `try-catch` block.
 
@@ -99,6 +99,8 @@ await isolates.stop();
 ```
 
 ## Worker
+
+You need to do a little bit more works then using normal Isolate but don't worry, the below steps will help you to do it easily.
 
 * **Step 1** Download [isolates_helper/worker/worker.dart](https://raw.githubusercontent.com/vursin/isolates_helper/main/worker/worker.dart) or copy the below code to the file named `worker.dart`:
 
