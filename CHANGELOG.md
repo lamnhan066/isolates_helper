@@ -1,3 +1,8 @@
+## 0.4.1
+
+* Update homepage URL.
+* Update comments.
+
 ## 0.4.0
 
 * Update `worker.dart` with a new format to make it easier to .
