@@ -119,6 +119,8 @@ void main() async {
       ],
     );
 
+    await isolates.restart();
+
     expect(result, isA<List<List<String>>>());
     expect(
         result,
@@ -127,6 +129,14 @@ void main() async {
         ]));
 
     isolates.stop();
+  });
+
+  test('Test `workerFunction`', () {
+    try {
+      IsolatesHelper.workerFunction({});
+    } catch (e) {
+      expect(e, isA<UnimplementedError>());
+    }
   });
 }
 
