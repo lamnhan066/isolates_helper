@@ -1,3 +1,9 @@
+## 0.4.2
+
+* Add `IsolatesHelper.workerFunction` (See more in README).
+* Update tests to improve the code coverage.
+* Update README.
+
 ## 0.4.1
 
 * Update homepage URL.
@@ -5,7 +11,7 @@
 
 ## 0.4.0
 
-* Update `worker.dart` with a new format to make it easier to .
+* Update `worker.dart` with a new format to make it easier to use.
 * Add `workerFunction`, `workerParams` to execute a mapped function when using `Worker`.
 
 ## 0.3.0
