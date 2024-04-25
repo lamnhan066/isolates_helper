@@ -1,4 +1,4 @@
-## 0.4.2
+## 0.4.2+1
 
 * Add `IsolatesHelper.workerFunction` (See more in README).
 * Update tests to improve the code coverage.

@@ -1,6 +1,6 @@
 name: isolates_helper
 description: "An easy way to create multiple long live isolates to compute multiple functions, support Worker on the Web and try-catch block"
-version: 0.4.2
+version: 0.4.2+1
 homepage: https://github.com/lamnhan066/isolates_helper
 
 environment:
