@@ -12,3 +12,8 @@ Future<R> platformExecute<R extends Object, P extends Object>({
 }) async {
   return (await manager.compute([function, params])) as R;
 }
+
+/// Create a Worker on Web.
+void workerFunctionImpl(Map<String, Function> map) {
+  throw UnimplementedError('Only implemented on the Web for the Worker');
+}

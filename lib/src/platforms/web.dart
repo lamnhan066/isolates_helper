@@ -1,4 +1,5 @@
 import 'package:isolate_manager/isolate_manager.dart';
+import 'package:isolates_helper/src/function.dart';
 
 /// Web platform does not need to use the `function`
 Future<R> platformExecute<R extends Object, P extends Object>({
@@ -21,4 +22,11 @@ Future<R> platformExecute<R extends Object, P extends Object>({
   } else {
     return (await manager.compute([function, params])) as R;
   }
+}
+
+/// Create a Worker on Web.
+void workerFunctionImpl(Map<String, Function> map) {
+  IsolateFunctionHelper.workerFunction((List<Object> message) {
+    return internalFunction(message);
+  });
 }

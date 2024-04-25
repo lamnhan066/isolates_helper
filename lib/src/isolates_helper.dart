@@ -6,6 +6,31 @@ import 'package:isolates_helper/src/function.dart';
 import 'platforms/stub.dart' if (dart.library.html) 'platforms/web.dart';
 
 class IsolatesHelper {
+  /// Create a worker in your `main`.
+  ///
+  /// ```dart
+  /// main() {
+  ///   /* Mapping between your function as String and real `Function`.
+  ///   This function MUST NOT depends on any Flutter library. */
+  ///   IsolatesHelper.workerFunction({
+  ///     'add' : add,
+  ///   });
+  /// }
+  /// ```
+  ///
+  /// Build it with `dart compile js worker.dart -o worker.js -O4` and copy the `worker.js` to
+  /// your Web folder.
+  ///
+  /// If you need to throw an exception, you should only throw the `message`
+  /// instead of a whole Object because it may not be shown as expected when
+  /// sending back to the main app.
+  ///
+  /// ``` dart
+  ///  return throw 'This is an error that you need to catch in your main app';
+  /// ```
+  static void workerFunction(Map<String, Function> map) =>
+      workerFunctionImpl(map);
+
   /// The instance of the [IsolateManager].
   late final IsolateManager<Object, List<Object>> _manager;
 
