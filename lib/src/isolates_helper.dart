@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:isolate_manager/isolate_manager.dart';
 import 'package:isolates_helper/src/function.dart';
 
-import 'platforms/stub.dart' if (dart.library.html) 'platforms/web.dart';
+import 'platforms/web.dart' if (dart.library.io) 'platforms/stub.dart';
 
 class IsolatesHelper {
   /// Create a worker in your `main`.
