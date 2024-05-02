@@ -64,6 +64,8 @@ class IsolatesHelper {
       workerName: worker,
       workerConverter: workerConverter,
       concurrent: concurrent,
+      // TODO: Set this value to false by default in the next big release
+      autoInitialize: true,
       isDebug: isDebug,
     )..start().then((value) {
         _ensureCompleter.complete();
