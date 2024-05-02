@@ -1,13 +1,13 @@
 name: isolates_helper
-description: "An easy way to create multiple long live isolates to compute multiple functions, support Worker on the Web and try-catch block"
-version: 0.4.2+1
+description: "Creates multiple long-lived isolates to compute multiple functions; Supports Worker and WASN on the Web; Supports try-catch block"
+version: 0.4.3
 homepage: https://github.com/lamnhan066/isolates_helper
 
 environment:
   sdk: ">=2.18.0 <4.0.0"
 
 dependencies:
-  isolate_manager: ^4.2.2
+  isolate_manager: ^4.3.0
 
 dev_dependencies:
   test: ^1.24.4

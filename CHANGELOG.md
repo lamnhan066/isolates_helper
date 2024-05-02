@@ -1,3 +1,9 @@
+## 0.4.3
+
+* Bump the `Isolate_Manager` to `v4.3.0`.
+* Improve the `IsolatesHelper.workerFunction`.
+* Improve the tests with the `Worker`.
+
 ## 0.4.2+1
 
 * Add `IsolatesHelper.workerFunction` (See more in README).
