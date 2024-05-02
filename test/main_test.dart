@@ -84,6 +84,7 @@ void main() async {
     });
   });
 
+  // This test will work better if the `autoInitialized` is set to `false`.
   test('Ensure started', () async {
     // The first `compute` will ensure started automatically
     final isolates1 = IsolatesHelper(concurrent: 1, worker: 'worker');
