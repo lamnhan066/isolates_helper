@@ -1,6 +1,6 @@
 name: isolates_helper
-description: "Creates multiple long-lived isolates to compute multiple functions; Supports Worker and WASN on the Web; Supports try-catch block"
-version: 0.4.3
+description: "Creates multiple long-lived isolates to compute multiple functions; Supports Worker and WASM on the Web; Supports try-catch block"
+version: 0.4.3+1
 homepage: https://github.com/lamnhan066/isolates_helper
 
 environment:

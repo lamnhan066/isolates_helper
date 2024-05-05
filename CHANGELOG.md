@@ -1,3 +1,8 @@
+## 0.4.3+1
+
+* Fix TYPO in the descriptions.
+* Update README.
+
 ## 0.4.3
 
 * Bump the `Isolate_Manager` to `v4.3.0`.

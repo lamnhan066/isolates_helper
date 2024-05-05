@@ -2,7 +2,9 @@
 
 [![codecov](https://codecov.io/gh/lamnhan066/isolates_helper/graph/badge.svg?token=A3DBXYYNUI)](https://codecov.io/gh/lamnhan066/isolates_helper)
 
-* An easy way to create multiple long live isolates to compute multiple functions.
+* Creates multiple long-lived isolates to compute multiple functions.
+
+* Supports `Worker` and `WASM` on the Web.
 
 * This package is based on the power of [isolate_manager](https://pub.dev/packages/isolate_manager) but can be used with multiple functions.
 
