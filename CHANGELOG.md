@@ -1,3 +1,10 @@
+## 0.5.0-rc.1
+
+* Using rc version of `Isolate_Manager`.
+* **BREAKING CHANGE:** All `Worker`s MUST be re-compiled to support this version.
+
+* Update examples.
+
 ## 0.4.3+1
 
 * Fix TYPO in the descriptions.
