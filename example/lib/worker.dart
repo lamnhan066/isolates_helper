@@ -7,5 +7,9 @@ import 'package:isolates_helper_example/functions.dart';
 
 /// In most cases you don't need to modify this function
 main() {
-  IsolatesHelper.workerFunction({'add': add});
+  IsolatesHelper.workerFunction({
+    'add': add,
+    'subtract': subtract,
+    'fibonacci': fibonacciRecursive,
+  });
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:isolates_helper/isolates_helper.dart';
 
@@ -19,6 +17,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String text = '';
 
+  double value1 = 0;
+  double value2 = 0;
+
   final isolates = IsolatesHelper(
     concurrent: 3,
     worker: 'worker',
@@ -30,10 +31,24 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
-  void calculate() {
-    final rand = Random();
-    final params = [rand.nextInt(1000), rand.nextInt(1000)];
+  void calculateAdd() {
+    final List<double> params = [value1, value2];
     isolates(add, params, workerFunction: 'add').then((value) {
+      setState(() => text = '$value');
+    });
+  }
+
+  void calculateSubtract() {
+    final List<double> params = [value1, value2];
+    isolates(subtract, params, workerFunction: 'subtract').then((value) {
+      setState(() => text = '$value');
+    });
+  }
+
+  void calculateFibonacci() {
+    final int params = value1.round();
+    isolates(fibonacciRecursive, params, workerFunction: 'fibonacci')
+        .then((value) {
       setState(() => text = '$value');
     });
   }
@@ -49,7 +64,26 @@ class _MyAppState extends State<MyApp> {
             child: Column(
           children: [
             Text('Result: $text'),
-            ElevatedButton(onPressed: calculate, child: const Text('Calculate'))
+            TextFormField(
+              initialValue: '$value1',
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                value1 = double.parse(value);
+              },
+            ),
+            TextFormField(
+              initialValue: '$value2',
+              keyboardType: TextInputType.number,
+              onChanged: (value) {
+                value2 = double.parse(value);
+              },
+            ),
+            ElevatedButton(onPressed: calculateAdd, child: const Text('Add')),
+            ElevatedButton(
+                onPressed: calculateSubtract, child: const Text('Subtract')),
+            ElevatedButton(
+                onPressed: calculateFibonacci,
+                child: const Text('Fibonacci for the first inputted value')),
           ],
         )),
       ),
