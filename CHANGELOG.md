@@ -1,5 +1,6 @@
 ## 0.5.0
 
+* Bump sdk version to `^3.3.0`.
 * Add a generator to generate the Worker by using the `@isolatesHelperWorker` annotation.
 * Bump `isolate_manager` to `v5.0.1`.
 * **BREAKING CHANGE:** All `Worker`s MUST be re-compiled to support this version. Recommend using the generator.
