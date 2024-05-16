@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:isolates_helper/isolates_helper.dart';
 
 import 'functions.dart';
+import 'functions1.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,6 @@ class _MyAppState extends State<MyApp> {
 
   final isolates = IsolatesHelper(
     concurrent: 3,
-    worker: 'worker',
     isDebug: true,
   );
 
@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
 
   void calculateFibonacci() {
     final int params = value1.round();
-    isolates(fibonacciRecursive, params, workerFunction: 'fibonacci')
+    isolates(fibonacciRecursive, params, workerFunction: 'fibonacciRecursive')
         .then((value) {
       setState(() => text = '$value');
     });
