@@ -4,9 +4,9 @@
 
 * Creates multiple long-lived isolates to compute multiple functions.
 
-* Supports `Worker` and `WASM` on the Web.
+* Supports `Worker` and `WASM` on the Web with an efficient generator using the `@isolatesHelperWorker` annotation.
 
-* This package is based on the power of [isolate_manager](https://pub.dev/packages/isolate_manager) but can be used with multiple functions.
+* This package is based on the power of [isolate_manager](https://pub.dev/packages/isolate_manager) but can be used to compute multiple functions.
 
 * Support `try-catch` block.
 
@@ -102,27 +102,29 @@ await isolates.stop();
 
 You need to do a little bit more works then using normal Isolate but don't worry, the below steps will help you to do it easily.
 
-* **Step 1** Create a file named `worker.dart`:
+* **Step 1:** Add `@isolatesHelperWorker` annotation to the functions that you want to use for the Worker
 
-  ``` dart
-  import 'package:isolates_helper/isolates_helper.dart';
+  ```dart
+  @isolatesHelperWorker
+  Future<double> addFuture(List<double> values) async {
+    return values[0] + values[1];
+  }
 
-  main() {
-    IsolatesHelper.workerFunction({
-       /* Mapping between your function as String and real `Function`.
-        This function MUST NOT depends on any Flutter library. */
-      'add': add,
-    });
+  @isolatesHelperWorker
+  int add(List<int> values) {
+    return values[0] + values[1];
   }
   ```
 
-  </details>
+* **Step 2:** Run this command
 
-* **Step 2:** Run `dart compile js worker.dart -o worker.js -O4` to compile Dart to JS (The flag `-O4` is the obfuscated level of JS, the lowest value is `-O0` and the highest value is `-O4`)
-* **Step 3:** Copy `worker.js` to the Web folder (the same folder with `index.html`).
-* **Step 4:** Now you can add `worker` to `worker` parameter like below:
+  ```console
+  dart run isolates_helper:generate
+  ```
 
-  ``` dart
+* **Step 3:** Add the `worker` to the `IsolatesHelper`
+
+  ```dart
   final isolates = IsolatesHelper(
     concurrent: 3,
     worker: 'worker',
@@ -130,7 +132,7 @@ You need to do a little bit more works then using normal Isolate but don't worry
   );
   ```
 
-* **Step 5** Here is the way to execute a Worker function
+* **Step 4:** Here is the way to execute a Worker function
 
   ``` dart
   final result = await isolates(

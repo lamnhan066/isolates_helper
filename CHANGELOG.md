@@ -1,9 +1,8 @@
-## 0.5.0-rc.1
+## 0.5.0
 
-* Using rc version of `Isolate_Manager`.
-* **BREAKING CHANGE:** All `Worker`s MUST be re-compiled to support this version.
-
-* Update examples.
+* Add a generator to generate the Worker by using the `@isolatesHelperWorker` annotation.
+* Bump `isolate_manager` to `v5.0.1`.
+* **BREAKING CHANGE:** All `Worker`s MUST be re-compiled to support this version. Recommend using the generator.
 
 ## 0.4.3+1
 
