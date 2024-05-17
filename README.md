@@ -1,6 +1,10 @@
 # Isolates Helper
 
 [![codecov](https://codecov.io/gh/lamnhan066/isolates_helper/graph/badge.svg?token=A3DBXYYNUI)](https://codecov.io/gh/lamnhan066/isolates_helper)
+![Pub Version](https://img.shields.io/pub/v/isolates_helper)
+![Pub Points](https://img.shields.io/pub/points/isolates_helper)
+![Pub Popularity](https://img.shields.io/pub/popularity/isolates_helper)
+![Pub Likes](https://img.shields.io/pub/likes/isolates_helper)
 
 * Creates multiple long-lived isolates to compute multiple functions.
 
