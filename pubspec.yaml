@@ -1,6 +1,6 @@
 name: isolates_helper
 description: "Creates multiple long-lived isolates to compute multiple functions; Supports Worker and WASM on the Web with a generator; Supports try-catch block"
-version: 0.5.0
+version: 0.5.1
 homepage: https://github.com/lamnhan066/isolates_helper
 
 environment:
@@ -9,9 +9,9 @@ environment:
 dependencies:
   analyzer: ">=5.0.0 <7.0.0"
   args: ^2.5.0
-  isolate_manager: ^5.0.1
+  isolate_manager: ^5.0.5+1
   path: ^1.9.0
 
 dev_dependencies:
   test: ^1.24.5
-  lints: ^3.0.0
+  lints: ^4.0.0

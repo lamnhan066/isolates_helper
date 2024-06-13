@@ -1,3 +1,7 @@
+## 0.5.1
+
+* Fixes issue that the temp files is not removed while generating.
+
 ## 0.5.0
 
 * Bump sdk version to `^3.3.0`.
