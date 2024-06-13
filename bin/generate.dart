@@ -239,7 +239,7 @@ Future<void> _generateFromAnotatedFunctions(
     }
   }
 
-  if (isDebug) {
+  if (!isDebug) {
     await file.delete();
   }
 }
