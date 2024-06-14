@@ -2563,11 +2563,12 @@ A.bD.prototype={
 ae(){var s=t.N
 return B.h.a7(A.bJ(["$IsolateException",A.bJ(["error",J.a7(this.a),"stack",this.b.h(0)],s,s)],s,t.G),null)}}
 A.cy.prototype={
-$1(a){var s,r,q,p=a.data,o=new A.V(new A.k($.i,t.c),t.r)
+$1(a){var s,r,q,p,o=new A.V(new A.k($.i,t.c),t.r)
 o.a.G(new A.cw(),new A.cx(),t.n)
-try{o.E(this.a.$1(p))}catch(q){s=A.H(q)
-r=A.F(q)
-o.V(s,r)}},
+try{s=a.data
+o.E(this.a.$1(s))}catch(p){r=A.H(p)
+q=A.F(p)
+o.V(r,q)}},
 $S:17}
 A.cw.prototype={
 $1(a){self.self.postMessage(a)
