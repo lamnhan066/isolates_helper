@@ -15,11 +15,11 @@ void main() async {
 
     isolates.stream.listen((result) {
       if (result is double) {
-        print('Stream get addFuture: $result');
+        // print('Stream get addFuture: $result');
       } else if (result is String) {
-        print('Stream get concat: $result');
+        // print('Stream get concat: $result');
       } else {
-        print('Stream get add: $result');
+        // print('Stream get add: $result');
       }
     });
 
@@ -27,14 +27,12 @@ void main() async {
       isolates
           .compute(addFuture, [i, i], workerFunction: 'addFuture')
           .then((value) async {
-        print('addFuture: $i + $i = $value');
         expect(value, equals(await addFuture([i, i])));
       });
     }
 
     for (int i = 0; i < 10; i++) {
       isolates(add, [i, i], workerFunction: 'add').then((value) {
-        print('add: $i + $i = $value');
         expect(value, equals(add([i, i])));
       });
     }
@@ -43,7 +41,6 @@ void main() async {
       isolates
           .compute(concat, ['$i', '$i'], workerFunction: 'concat')
           .then((value) {
-        print('add: $i + $i = $value');
         expect(value, equals(concat(['$i', '$i'])));
       });
     }
@@ -60,9 +57,9 @@ void main() async {
 
     // Catch the error from the stream
     isolates.stream.listen((result) {
-      print('Stream get add: $result');
+      // print('Stream get add: $result');
     }).onError((e) {
-      print('Error from stream: $e');
+      // print('Error from stream: $e');
       expect(e.toString(), equals(ArgumentError().toString()));
     });
 
@@ -74,7 +71,6 @@ void main() async {
         workerFunction: 'addException',
       );
     } catch (e) {
-      print('Error from try-catch: $e');
       expect(e.toString(), equals(ArgumentError().toString()));
     }
 
@@ -112,9 +108,6 @@ void main() async {
     await isolates1.stop();
     await isolates2.stop();
 
-    print(stopWithoutEnsured);
-    print(stopWithEnsured);
-
     // The stopWithoutEnsured will always greater than the stopWithEnsured
     // because it needs to wait for the `ensureStarted` before computation.
     expect(stopWithoutEnsured, greaterThan(stopWithEnsured));
@@ -149,5 +142,12 @@ void main() async {
     } catch (e) {
       expect(e, isA<UnimplementedError>());
     }
+  });
+
+  test('Test ignoring `workerFunction`', () async {
+    final isolates = IsolatesHelper(concurrent: 3, worker: 'worker');
+
+    final result = await isolates.compute(add, [2, 3]);
+    expect(result, equals(5));
   });
 }
