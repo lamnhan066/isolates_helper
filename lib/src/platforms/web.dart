@@ -1,10 +1,12 @@
+import 'dart:async';
+
 import 'package:isolate_manager/isolate_manager.dart';
 import 'package:isolates_helper/src/function.dart';
 
 /// Web platform does not need to use the `function`
 Future<R> platformExecute<R extends Object, P extends Object>({
   required IsolateManager<Object, Object> manager,
-  required Object function,
+  required FutureOr<R> Function(P) function,
   required P params,
   required String? workerFunction,
   required Object? workerParams,
@@ -20,7 +22,9 @@ Future<R> platformExecute<R extends Object, P extends Object>({
     final finalParams = workerParams ?? params;
     return (await manager.compute([workerFunction, finalParams])) as R;
   } else {
-    return (await manager.compute([function, params])) as R;
+    final completer = Completer<R>();
+    completer.complete(function(params));
+    return completer.future;
   }
 }
 

@@ -1,9 +1,11 @@
+import 'dart:async';
+
 import 'package:isolate_manager/isolate_manager.dart';
 
 /// Execute
 Future<R> platformExecute<R extends Object, P extends Object>({
   required IsolateManager<Object, Object> manager,
-  required Object function,
+  required FutureOr<R> Function(P) function,
   required P params,
   required String? workerFunction,
   required Object? workerParams,
