@@ -1,3 +1,7 @@
+## 0.5.2
+
+* Fixes issue when the `workerFunction` is empty in an available Worker isolate.
+
 ## 0.5.1
 
 * Fixes issue that the temp files is not removed while generating.
